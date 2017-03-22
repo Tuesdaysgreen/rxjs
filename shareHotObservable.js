@@ -10,7 +10,7 @@ function getObservable() {
 
 
 var ob = Rx.Observable.zip(getObservable(), getObservable())
-.do(_ => {
+.do(() => {
     console.log("in do")
 })
 
