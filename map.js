@@ -1,10 +1,10 @@
 var Rx = require('rxjs/Rx');
 
 var s1 = new Rx.Subject();
-var s2 = new Rx.Subject();
 
-// merges two streams into one and outputs as they occur
-var observable = s1.merge(s2);
+var observable = s1.map(x =>{
+    return x + 1;
+})
 
 var subscription = observable.subscribe({
     next: x => console.log(x),
@@ -12,16 +12,9 @@ var subscription = observable.subscribe({
     complete : () => console.log('complete')
 })
 
-// [a, b,....c,..]
-// [..... x,....y]
-
-s1.next('a');
-s1.next('b');
-
-s2.next('x');
-
-s1.next('c');
-s2.next('y');
+s1.next(1);
+s1.next(2);
+s1.next(3);
 
 if(!subscription.closed){
     console.log("Calling unsubscribe");
